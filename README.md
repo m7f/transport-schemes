@@ -16,7 +16,7 @@
 Схемы, наложенные на карту, не требуют таких затрат, но имеют существенные недостатки:
 * нагромождение параллельных маршрутов
 
-![img](http://www.saletur.ru/galery/tfoto_map/big/3040.jpg)
+![img](http://rss-novini.net/images/stories/polezno/varna-karta.jpg)
 * неграмотно подобранная палитра цветов
 
 ![img](http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif)
@@ -76,7 +76,7 @@
 * https://www.artlebedev.ru/metro/map3/
 * http://artgorbunov.ru/bb/soviet/20160105/
 * http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif
-* http://www.saletur.ru/galery/tfoto_map/big/3040.jpg
+* http://rss-novini.net/images/stories/polezno/varna-karta.jpg
 * http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif
 * http://www.200stran.ru/images/maps/1243333691_92ade9.jpg
 * http://transport.orgp.spb.ru/
