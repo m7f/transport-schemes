@@ -16,13 +16,13 @@
 Схемы, наложенные на карту, не требуют таких затрат, но имеют существенные недостатки:
 * нагромождение параллельных маршрутов
 
-![img](http://artgorbunov.ru/bb/soviet/20160105/bundle-spaced@fx.png)
+![img](http://www.saletur.ru/galery/tfoto_map/big/3040.jpg)
 * неграмотно подобранная палитра цветов
 
 ![img](http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif)
 * запутанность линий в местах их скопления
 
-![img](http://artgorbunov.ru/bb/soviet/20160105/schukino@fx.png)
+![img](http://www.200stran.ru/images/maps/1243333691_92ade9.jpg)
 * много как лишнего текста, так и неиспользованных пустот
 
 ![img](http://artgorbunov.ru/bb/soviet/20160105/london-night-buses@fx.png)
@@ -76,6 +76,8 @@
 * https://www.artlebedev.ru/metro/map3/
 * http://artgorbunov.ru/bb/soviet/20160105/
 * http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif
+* http://www.saletur.ru/galery/tfoto_map/big/3040.jpg
 * http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif
+* http://www.200stran.ru/images/maps/1243333691_92ade9.jpg
 * http://transport.orgp.spb.ru/
 * http://pitertransport.com/
