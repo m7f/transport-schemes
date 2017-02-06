@@ -45,11 +45,11 @@ formatRoute = (id) => {
     JSON_shape_dir = '"shape":[';
     JSON_shape_ret = '"shape":[';
     coords_dir.forEach(elem => {
-        JSON_shape_dir += '{"lat":' + elem[0] + ',"lon":' + elem[1] + '},';
+        JSON_shape_dir += '{"lat":' + elem[1] + ',"lon":' + elem[0] + '},';
     });
     JSON_shape_dir = (JSON_shape_dir).slice(0, JSON_shape_dir.length - 1) +  ']';
     coords_ret.forEach(elem => {
-        JSON_shape_ret += '{"lat":' + elem[0] + ',"lon":' + elem[1] + '},';
+        JSON_shape_ret += '{"lat":' + elem[1] + ',"lon":' + elem[0] + '},';
     });
     JSON_shape_ret = (JSON_shape_ret).slice(0, JSON_shape_ret.length - 1) +  ']';
 
