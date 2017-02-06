@@ -1,2 +1,5 @@
 .gitignore
 node_modules
+/scraper/lists
+/scraper/output
+/scraper/route_data
