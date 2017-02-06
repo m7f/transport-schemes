@@ -1,0 +1,23 @@
+{
+  "name": "transport-schemes",
+  "version": "1.0.0",
+  "description": "За основу проектной работы взяты маршруты общественного транспорта Санкт-Петербурга.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mflorinsky/transport-schemes.git"
+  },
+  "author": "Michael Florinsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mflorinsky/transport-schemes/issues"
+  },
+  "homepage": "https://github.com/mflorinsky/transport-schemes#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.79.0"
+  }
+}
