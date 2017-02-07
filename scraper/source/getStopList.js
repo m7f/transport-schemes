@@ -8,8 +8,8 @@ const getStopList = () => {
         file = JSON.parse(fs.readFileSync('./route_data/' + id + '.json'));
         file['features'].forEach(stop => {
             stop_list += '"' + stop['id'] + '":{"lat":' +
-            stop['geometry']['coordinates'][0] + ',"lon":' +
-            stop['geometry']['coordinates'][1] + ',"title":"' +
+            stop['geometry']['coordinates'][1] + ',"lon":' +
+            stop['geometry']['coordinates'][0] + ',"title":"' +
             formatStop(stop['properties']['name']) + '"},'
         })
     });
