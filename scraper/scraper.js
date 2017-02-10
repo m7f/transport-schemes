@@ -1,5 +1,7 @@
-const getIDS = require('./source/getIdList.js');
-const getROUTES = require('./source/getRoute.js');
+const path = require('path');
+
+const getIDS = require(path.join(__dirname, 'source/getIdList.js'));
+const getROUTES = require(path.join(__dirname, 'source/getRoute.js'));
 
 getIDS;
 
