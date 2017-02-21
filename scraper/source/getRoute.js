@@ -50,10 +50,8 @@ const getRoute = (id, t) => {
 const getAllRoutes = (i) => {
     if (i >= IDS.length) {
         fs.writeFileSync(path.join(__dirname, '../lists/length_list.json'), JSON.stringify(arr, null, 4));
-        const getSTOPS = require(path.join(__dirname, 'getStopList.js'));
-        getSTOPS;
-        const startFORMAT = require(path.join(__dirname, 'format.js'));
-        startFORMAT;
+        const start_format = require(path.join(__dirname, 'format.js'));
+        start_format;
         return;
     }
     const next = () => {
