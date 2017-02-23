@@ -46,10 +46,7 @@ format = () => {
         })
         console.log(id + ' formatted!')
     })
-    if (!fs.existsSync(path.join(__dirname, '../output'))) {
-        fs.mkdirSync(path.join(__dirname, '../output'));
-    }
-    fs.writeFileSync(path.join(__dirname, '../output/data.json'), JSON.stringify(DATA, null, 4));
+    fs.writeFileSync(path.join(__dirname, '../../data.json'), JSON.stringify(DATA, null, 4));
     console.log('DONE!')
 }
 
