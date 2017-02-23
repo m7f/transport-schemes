@@ -6,5 +6,5 @@
     
     nodejs scraper.js
     
-Результат сгенерируется в `/data.json`.
+Результат сгенерируется в `data.json`.
 
