@@ -36,14 +36,14 @@ format = () => {
             if (iter < dir) {
                 DATA.routes[id].trips.direct.stops.push(stop.id)
                 DATA.routes[id].trips.direct.shape.push({
-                    lat: sm.inverse(stop.geometry.coordinates)[1],
-                    lon: sm.inverse(stop.geometry.coordinates)[0],
+                    lat: Number(sm.inverse(stop.geometry.coordinates)[1].toFixed(6)),
+                    lon: Number(sm.inverse(stop.geometry.coordinates)[0].toFixed(6)),
                 })
             } else {
                 DATA.routes[id].trips.return.stops.push(stop.id)
                 DATA.routes[id].trips.return.shape.push({
-                    lat: sm.inverse(stop.geometry.coordinates)[1],
-                    lon: sm.inverse(stop.geometry.coordinates)[0],
+                    lat: Number(sm.inverse(stop.geometry.coordinates)[1].toFixed(6)),
+                    lon: Number(sm.inverse(stop.geometry.coordinates)[0].toFixed(6)),
                 })
             }
             ++iter;
