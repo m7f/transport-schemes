@@ -1,5 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const SM = require('sphericalmercator');
+var sm = new SM({
+    size: 256
+});
 
 const IDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../lists/id_list.json')));
 const info = JSON.parse(fs.readFileSync(path.join(__dirname, '../lists/length_list.json')));
@@ -32,14 +36,14 @@ format = () => {
             if (iter < dir) {
                 DATA.routes[id].trips.direct.stops.push(stop.id)
                 DATA.routes[id].trips.direct.shape.push({
-                    lat: stop.geometry.coordinates[1],
-                    lon: stop.geometry.coordinates[0],
+                    lat: sm.inverse(stop.geometry.coordinates)[1],
+                    lon: sm.inverse(stop.geometry.coordinates)[0],
                 })
             } else {
                 DATA.routes[id].trips.return.stops.push(stop.id)
                 DATA.routes[id].trips.return.shape.push({
-                    lat: stop.geometry.coordinates[1],
-                    lon: stop.geometry.coordinates[0],
+                    lat: sm.inverse(stop.geometry.coordinates)[1],
+                    lon: sm.inverse(stop.geometry.coordinates)[0],
                 })
             }
             ++iter;

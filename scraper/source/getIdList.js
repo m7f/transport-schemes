@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const request = require('request');
+const SM = require('sphericalmercator');
+var sm = new SM({
+    size: 256
+});
 
 if (!fs.existsSync(path.join(__dirname, '../lists'))) {
     fs.mkdirSync(path.join(__dirname, '../lists'));
@@ -33,8 +37,8 @@ const getIdList = () => {
             data = {};
             JSON.parse(body).aaData.forEach(stop => {
                 data[stop[0]] = {
-                    lat: stop[2].lat,
-                    lon: stop[2].lon,
+                    lat: sm.inverse([stop[2].lon, stop[2].lat])[1],
+                    lon: sm.inverse([stop[2].lon, stop[2].lat])[0],
                     title: stop[1]
                 }
             })
