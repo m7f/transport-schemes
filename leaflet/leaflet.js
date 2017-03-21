@@ -25,7 +25,7 @@ fetch('../data.json')
             } else if (r.type === 'tram') {
                 color = 'red'
             } else {
-                color = 'green'
+                color = '#67ED00'
             }
             Object.values(r.trips).forEach(t => {
                 L.polyline(t.shape, {
