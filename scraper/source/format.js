@@ -46,6 +46,7 @@ format = () => {
                     lon: Number(sm.inverse(stop.geometry.coordinates)[0].toFixed(6)),
                 })
             }
+            DATA.stops[stop.id].status = 'active';
             ++iter;
         })
         console.log(id + ' formatted!')

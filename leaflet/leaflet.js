@@ -15,12 +15,14 @@ fetch('../data.json')
     .then(data => {
 
         Object.values(data.stops).forEach(s => {
-            L.circleMarker([s.lat, s.lon], {
-                stroke: false,
-                color: 'navy',
-                fillOpacity: 0.8,
-                radius: 5,
-            }).addTo(map);
+            if (s.status === 'active') {
+                L.circleMarker([s.lat, s.lon], {
+                    stroke: false,
+                    color: 'navy',
+                    fillOpacity: 0.8,
+                    radius: 5,
+                }).addTo(map);
+            }
         });
         Object.values(data.routes).forEach(r => {
             var color
