@@ -34,6 +34,22 @@ const getRouteLength = (id, t) => {
     })
 };
 
+const getRouteShape = (id, t) => {
+    const url = `http://transport.orgp.spb.ru/Portal/transport/map/stage?ROUTE=${id}&REQUEST=GetFeature&BBOX=2000000,7000000,4000000,9000000`;
+    request({
+        url,
+        headers: {
+            'Referer': 'http://transport.orgp.spb.ru/Portal/transport/main',
+        },
+    }, (err, res, body) => {
+        fs.writeFileSync(path.join(__dirname, `../route_data/${id}shape.json`), JSON.stringify(JSON.parse(body), null, 4));
+        if (JSON.parse(body).features.length === 0) {
+            console.log('ALERT' + id)
+        }
+        getRouteLength(id, t);
+    });
+};
+
 const getRoute = (id, t) => {
     const url = `http://transport.orgp.spb.ru/Portal/transport/map/poi?ROUTE=${id}&REQUEST=GetFeature`;
     request({
@@ -43,7 +59,7 @@ const getRoute = (id, t) => {
         },
     }, (err, res, body) => {
         fs.writeFileSync(path.join(__dirname, `../route_data/${id}.json`), JSON.stringify(JSON.parse(body), null, 4));
-        getRouteLength(id, t);
+        getRouteShape(id, t);
     });
 };
 
