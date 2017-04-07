@@ -4,12 +4,6 @@ map.addLayer(
     new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 );
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
 fetch('../data.json')
     .then(r => r.json())
     .then(data => {
@@ -40,14 +34,7 @@ fetch('../data.json')
                 }).addTo(map);
             });
         });
-        routes = Object.keys(data.routes)
-        route = routes[getRandomInt(0, routes.length)]
-        console.log(route)
-        Object.values(data.routes[route].trips).forEach(t => {
-            L.polyline(t.shape, {
-                color: 'white',
-                weight: 3,
-            }).addTo(map);
-        });
+
+
 
 });
