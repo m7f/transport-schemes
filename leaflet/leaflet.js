@@ -16,7 +16,7 @@ fetch('../data.json')
                     fillOpacity: 0.8,
                     radius: 5,
                 }).addTo(map);
-                stop.bindPopup(s.title);
+                stop.bindPopup(`${s.title}`);
             }
         });
         Object.values(data.routes).forEach(r => {
