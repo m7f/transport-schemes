@@ -29,10 +29,11 @@ fetch('../data.json')
                 color = '#67ED00'
             }
             Object.values(r.trips).forEach(t => {
-                L.polyline(t.shape, {
+                var road = L.polyline(t.shape, {
                     color: color,
                     weight: 3,
                 }).addTo(map);
+                road.bindPopup(`${r.id}`);
             });
         });
 
