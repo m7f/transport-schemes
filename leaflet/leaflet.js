@@ -45,7 +45,7 @@ fetch('../data.json')
         console.log(route)
         Object.values(data.routes[route].trips).forEach(t => {
             L.polyline(t.shape, {
-                color: 'yellow',
+                color: 'white',
                 weight: 3,
             }).addTo(map);
         });
