@@ -10,12 +10,13 @@ fetch('../data.json')
 
         Object.values(data.stops).forEach(s => {
             if (s.status === 'active') {
-                L.circleMarker([s.lat, s.lon], {
+                var stop = L.circleMarker([s.lat, s.lon], {
                     stroke: false,
                     color: 'navy',
                     fillOpacity: 0.8,
                     radius: 5,
                 }).addTo(map);
+                stop.bindPopup(s.title);
             }
         });
         Object.values(data.routes).forEach(r => {
