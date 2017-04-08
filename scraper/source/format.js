@@ -32,7 +32,6 @@ format = () => {
             },
         }
         dir = info[id].dir;
-        console.log('dir = ', dir, id)
         iter = 0;
         routeFile.features.forEach(stop => {
             if (iter < dir) {
