@@ -2,36 +2,35 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
 
     const colorScheme = {
         bus: {
-            color: '#5EC7FF',
-            weight: 6
+            color: '#0779D0',
+            weight: 7
         },
         tram: {
             color: '#FF0000',
-            weight: 6
+            weight: 7
         },
         trolley: {
-            color: '#67ED00',
-            weight: 6
+            color: '#00B41F',
+            weight: 7
         },
         dehighlightRoute: {
-            color: '#1441C9',
+            color: '#87939F',
             weight: 3,
         },
         highlightStop: {
-            radius: 8,
-            fillColor: "#FF7800",
-            color: "#000000",
-            weight: 1,
+            stroke: true,
+            radius: 11,
+            fillColor: "#FFFFFF",
+            weight: 3,
             opacity: 1,
             fillOpacity: 1
         },
         dehighlightStop: {
             radius: 8,
-            fillColor: "#FF7800",
-            color: "#000000",
-            weight: 1,
+            fillColor: "#FFFFFF",
+            weight: 6,
             opacity: 1,
-            fillOpacity: 0.8
+            fillOpacity: 1
         }
     }
 
@@ -52,7 +51,7 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     var map = L.map('map', {
         center: [59.969881, 30.275338],
         zoom: 11,
-        layers: [dark],
+        layers: [light],
         zoomControl: false
     });
 
@@ -75,20 +74,25 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     var highlightedShape = 'none';
     var clicks = {};
     Object.values(data.routes).forEach(r=>{
+        var textRoute = `<li><stop id='myStop'><font size = 20>${r.id}</font></stop></li>`;
         var featureShape = []
           , featureStops = []
           , shape = [];
         Object.values(r.trips).forEach(t=>{
+
             t.shape.forEach(elem=>shape.push(elem))
-            t.stops.forEach(s=>featureStops.push(L.circleMarker([data.stops[s].lat, data.stops[s].lon], colorScheme.dehighlightStop)
-            .bindPopup(`${data.stops[s].title}`)
-            .on('mouseover', (e)=>{
-                e.target.setStyle(colorScheme.highlightStop)
-            })
-            .on('mouseout', (e)=>{
-                e.target.setStyle(colorScheme.dehighlightStop)
-            }
-            ))
+            t.stops.forEach(s=> {
+                textRoute += `<li>&#9899 ${data.stops[s].title}</li>`
+                    featureStops.push(L.circleMarker([data.stops[s].lat, data.stops[s].lon], colorScheme.dehighlightStop)
+                .setStyle({color: colorScheme[r.type].color})
+                .bindPopup(`${data.stops[s].title}`)
+                .on('mouseover', (e)=>{
+                    e.target.setStyle(colorScheme.highlightStop)
+                })
+                .on('mouseout', (e)=>{
+                    e.target.setStyle(colorScheme.dehighlightStop)
+                }
+                ))}
         )})
         clicks[shape] = false;
         featureShape.push(L.polyline(shape, colorScheme.dehighlightRoute)
@@ -129,6 +133,9 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
                 map.addLayer(featureStops)
                 featureStops.bringToFront()
                 openNav();
+                document.getElementById("mySidenav").innerHTML = textRoute;
+
+
             }}))
         routes[r.type].shape.push(featureShape)
         routes[r.type].stops.push(featureStops)
@@ -173,22 +180,29 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     map.addLayer(tramRoads)
     map.addLayer(trolleyRoads)
 
+    /*
+    document.getElementById("myStop").addEventListener('click', (e) => {
+        map.setView(e.latlng, 15, {animate:true, duration:10.0})
+    });
+    */
+
+
 });
 
 openNav = () => {
     document.getElementById("button0").innerText = "<"
-    document.getElementById("mySidenav").style.width = "350px";
+    document.getElementById("mySidenav").style.left = "0px";
     document.getElementById("button0").style.marginLeft = "350px";
 }
 
 closeNav = () => {
     document.getElementById("button0").innerText = ">"
-    document.getElementById("mySidenav").style.width = "0px";
+    document.getElementById("mySidenav").style.left = "-350px";
     document.getElementById("button0").style.marginLeft = "0px";
 }
 
 changeNav = () => {
-    if (document.getElementById("mySidenav").style.width != "350px"){
+    if (document.getElementById("mySidenav").style.left != "0px"){
         openNav();
     } else {
         closeNav();
