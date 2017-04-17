@@ -21,11 +21,25 @@
                 transition: margin-left .5s;
             }
 
+
+
             #map {
                 height: 100%;
                 width: 100%;
-                background: #242426;
+                background: #cdd2d4;
                 z-index: 1;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            stop {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
             }
 
             .topnav {
@@ -55,28 +69,28 @@
             }
 
             .sidenav {
-                height: 100%;
-                width: 0;
+                width: 350px;
                 position: fixed;
                 z-index: 99;
                 top: 45px;
-                left: 0;
+                left: -350px;
+                bottom: 0;
                 background-color: rgba(255, 255, 255, 0.9);
                 overflow-x: hidden;
-                padding-top: 60px;
+                padding-bottom: 40px;
                 transition: 0.5s;
             }
 
-            .sidenav a {
+            .sidenav li {
                 padding: 8px 8px 8px 32px;
                 text-decoration: none;
-                font-size: 25px;
+                font-size: 15px;
                 color: #818181;
                 display: block;
                 transition: 0.3s
             }
 
-            .sidenav a:hover, .offcanvas a:focus {
+            .sidenav li:hover, .offcanvas a:focus {
                 background-color: #ddd;
                 color: #111;
             }
@@ -101,10 +115,11 @@
                     padding-top: 15px;
                 }
 
-                .sidenav a {
+                .sidenav li {
                     font-size: 18px;
                 }
             }
+
         </style>
     </head>
     <body>
@@ -114,12 +129,8 @@
             <a href="#contact">Nice</a>
             <a href="#about">Buttons</a>
         </div>
-        <div id="mySidenav" class="sidenav">
-            <a href="#">Route</a>
-            <a href="#">Will</a>
-            <a href="#">Be</a>
-            <a href="#">Here</a>
-        </div>
+        <ul id="mySidenav" class="sidenav">
+        </ul>
         <div class="mapwrap" id="myMap">
             <a href="#" class="closebtn" id="button0" onclick="changeNav()">></a>
             <div id="map"></div>
