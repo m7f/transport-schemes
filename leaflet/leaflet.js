@@ -52,7 +52,8 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     var map = L.map('map', {
         center: [59.969881, 30.275338],
         zoom: 11,
-        layers: [dark]
+        layers: [dark],
+        zoomControl: false
     });
 
     var routes = {
@@ -69,69 +70,71 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
             stops: []
         }
     }
+    var highlightedRoute = 'none';
+    var highlightedStops = 'none';
+    var highlightedShape = 'none';
+    var clicks = {};
     Object.values(data.routes).forEach(r=>{
         var featureShape = []
           , featureStops = []
           , shape = [];
         Object.values(r.trips).forEach(t=>{
             t.shape.forEach(elem=>shape.push(elem))
-            t.stops.forEach(s=>featureStops.push(L.circleMarker([data.stops[s].lat, data.stops[s].lon], colorScheme.dehighlightStop).bindPopup(`${data.stops[s].title}`).on('mouseover', (e)=>{
+            t.stops.forEach(s=>featureStops.push(L.circleMarker([data.stops[s].lat, data.stops[s].lon], colorScheme.dehighlightStop)
+            .bindPopup(`${data.stops[s].title}`)
+            .on('mouseover', (e)=>{
                 e.target.setStyle(colorScheme.highlightStop)
-            }
-            ).on('mouseout', (e)=>{
+            })
+            .on('mouseout', (e)=>{
                 e.target.setStyle(colorScheme.dehighlightStop)
             }
-            )))
-        }
-        )
-        var clicked = false
-        featureShape.push(L.polyline(shape, colorScheme.dehighlightRoute).bindPopup(`${r.id}`).on('mouseover', (e)=>{
-            e.target.bringToFront()
-            e.target.setStyle(colorScheme[r.type])
-            if (clicked) {
-                featureStops.bringToFront()
-            }
-        }
-        ).on('mouseout', (e)=>{
-            if (!clicked) {
-                e.target.bringToBack()
-                e.target.setStyle(colorScheme.dehighlightRoute)
-            }
-        }
-        ).on('click', (e)=>{
-            if (!clicked) {
+            ))
+        )})
+        clicks[shape] = false;
+        featureShape.push(L.polyline(shape, colorScheme.dehighlightRoute)
+        .on('mouseover', (e) => {
+            if (!clicks[shape]) {
                 e.target.bringToFront()
                 e.target.setStyle(colorScheme[r.type])
-                clicked = true
-                map.addLayer(featureStops)
-            } else {
+            }
+        })
+        .on('mouseout', (e) => {
+            if (!clicks[shape]) {
                 e.target.bringToBack()
                 e.target.setStyle(colorScheme.dehighlightRoute)
-                clicked = false
-                map.removeLayer(featureStops)
             }
-        }
-        ))
+        })
+        .on('click', (e) => {
+            clicks[shape] = !clicks[shape]
+            if (!clicks[shape]) {
+                highlightedRoute = 'none';
+                highlightedStops = 'none';
+                highlightedShape = 'none';
+                e.target.bringToBack()
+                e.target.setStyle(colorScheme.dehighlightRoute)
+                map.removeLayer(featureStops)
+                closeNav();
+            } else {
+                if (highlightedRoute != 'none') {
+                    highlightedRoute.target.bringToBack()
+                    highlightedRoute.target.setStyle(colorScheme.dehighlightRoute)
+                    map.removeLayer(highlightedStops)
+                    clicks[highlightedShape] = false
+                }
+                highlightedRoute = e;
+                highlightedStops = featureStops;
+                highlightedShape = shape;
+                e.target.bringToFront()
+                e.target.setStyle(colorScheme[r.type])
+                map.addLayer(featureStops)
+                featureStops.bringToFront()
+                openNav();
+            }}))
         routes[r.type].shape.push(featureShape)
         routes[r.type].stops.push(featureStops)
         featureStops = L.featureGroup(featureStops)
         featureShape = L.featureGroup(featureShape)
-        map.on('overlayremove', ()=>{
-            map.removeLayer(featureStops)
-            clicked = false
-            featureShape.setStyle(colorScheme.dehighlightRoute);
-        }
-        );
-        map.on('overlayadd', ()=>{
-            if (clicked) {
-                featureShape.bringToFront();
-                featureStops.bringToFront();
-            }
-        }
-        )
-
-    }
-    )
+    })
 
     var busRoads = []
       , tramRoads = []
@@ -163,11 +166,31 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
         "Троллейбусы": trolleyRoads
     };
 
-    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    //L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+    L.control.zoom({position:'topright'}).addTo(map);
     map.addLayer(busRoads)
     map.addLayer(tramRoads)
     map.addLayer(trolleyRoads)
 
+});
+
+openNav = () => {
+    document.getElementById("button0").innerText = "<"
+    document.getElementById("mySidenav").style.width = "350px";
+    document.getElementById("button0").style.marginLeft = "350px";
 }
-);
+
+closeNav = () => {
+    document.getElementById("button0").innerText = ">"
+    document.getElementById("mySidenav").style.width = "0px";
+    document.getElementById("button0").style.marginLeft = "0px";
+}
+
+changeNav = () => {
+    if (document.getElementById("mySidenav").style.width != "350px"){
+        openNav();
+    } else {
+        closeNav();
+    }
+}
