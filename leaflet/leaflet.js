@@ -74,7 +74,15 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     var highlightedShape = 'none';
     var clicks = {};
     Object.values(data.routes).forEach(r=>{
-        var textRoute = `<li><stop id='myStop'><font size = 20>${r.id}</font></stop></li>`;
+        var icon = '';
+        if (r.type === 'bus') {
+            icon = '&#x1F68C';
+        } else if (r.type === 'trolley') {
+            icon = '&#x1F68E';
+        } else if (r.type === 'tram') {
+            icon = '&#x1F68B';
+        }
+        var textRoute = `<li><stop id='myStop'><font size = 20>${icon} ${r.id}</font></stop></li>`;
         var featureShape = []
           , featureStops = []
           , shape = [];
@@ -190,13 +198,13 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
 });
 
 openNav = () => {
-    document.getElementById("button0").innerText = "<"
+    //document.getElementById("button0").innerText = "\u2636"
     document.getElementById("mySidenav").style.left = "0px";
     document.getElementById("button0").style.marginLeft = "350px";
 }
 
 closeNav = () => {
-    document.getElementById("button0").innerText = ">"
+    //document.getElementById("button0").innerText = "\u2630"
     document.getElementById("mySidenav").style.left = "-350px";
     document.getElementById("button0").style.marginLeft = "0px";
 }
