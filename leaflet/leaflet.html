@@ -35,8 +35,21 @@
                 margin: 0;
                 padding: 0;
             }
-
-
+            .stopDot {
+                position: absolute;
+                left: 10px;
+                display: block;
+                font-size: 25px;
+                color: rgb(129, 129, 129);
+            }
+            .roadLine {
+                background-color: rgb(200, 200, 200);
+                position: absolute;
+                left: 14px;
+                width: 7px;
+                display: block;
+                height: 100px;
+            }
 
             .topnav {
                 background-color: black ;
@@ -78,7 +91,7 @@
             }
 
             .sidenav li {
-                padding: 8px 8px 8px 32px;
+                padding: 8px 8px 8px 40px;
                 text-decoration: none;
                 font-size: 15px;
                 color: #818181;
@@ -126,6 +139,7 @@
             <a href="#about">Buttons</a>
         </div>
         <ul id="mySidenav" class="sidenav">
+            <div class="roadLine" id="myLine" style='height: 100%'></div>
         </ul>
         <div class="mapwrap" id="myMap">
             <a href="#" class="closebtn" id="button0" onclick="changeNav()">&#9776;</a>

@@ -82,7 +82,7 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
         } else if (r.type === 'tram') {
             icon = '&#x1F68B';
         }
-        var textRoute = `<li><stop id='myStop'><font size = 20>${icon} ${r.id}</font></stop></li>`;
+        var textRoute = `<div class="roadLine" id="myLine" style='height: 100%'></div><li><div id='myStop'><font size = 20>${icon} ${r.id}</font></div></li>`;
         var featureShape = []
           , featureStops = []
           , shape = [];
@@ -90,7 +90,7 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
 
             t.shape.forEach(elem=>shape.push(elem))
             t.stops.forEach(s=> {
-                textRoute += `<li>&#9899 ${data.stops[s].title}</li>`
+                textRoute += `<div class="roadLine" id="myLine"></div><div class="stopDot">&#9899;</div><li onclick="fun([${data.stops[s].lat}, ${data.stops[s].lon}])"> ${data.stops[s].title}</li>`
                     featureStops.push(L.circleMarker([data.stops[s].lat, data.stops[s].lon], colorScheme.dehighlightStop)
                 .setStyle({color: colorScheme[r.type].color})
                 .bindPopup(`${data.stops[s].title}`)
@@ -140,8 +140,8 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
                 e.target.setStyle(colorScheme[r.type])
                 map.addLayer(featureStops)
                 featureStops.bringToFront()
-                openNav();
                 document.getElementById("mySidenav").innerHTML = textRoute;
+                openNav();
 
 
             }}))
@@ -187,12 +187,8 @@ fetch('../data.json').then(r=>r.json()).then(data=>{
     map.addLayer(busRoads)
     map.addLayer(tramRoads)
     map.addLayer(trolleyRoads)
+    fun = (latlng) => map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
 
-    /*
-    document.getElementById("myStop").addEventListener('click', (e) => {
-        map.setView(e.latlng, 15, {animate:true, duration:10.0})
-    });
-    */
 
 
 });
