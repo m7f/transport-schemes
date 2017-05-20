@@ -195,8 +195,8 @@ clusterisation = (data, map, route, size) => {
 
     const mean = arr => arr.reduce((a, val) => a + val, 0) / arr.length;
 
-    const d = (s1, s2) => {  // generally used geo measurement function
-        var R = 6378.137; // Radius of earth in KM
+    const d = (s1, s2) => {
+        var R = 6378.137;
         var dLat = s2.lat * Math.PI / 180 - s1.lat * Math.PI / 180;
         var dLon = s2.lon * Math.PI / 180 - s1.lon * Math.PI / 180;
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -204,7 +204,7 @@ clusterisation = (data, map, route, size) => {
         Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
-        return d * 1000; // meters
+        return d * 1000;
     }
 
     const centroid = clust => ({
