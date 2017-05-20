@@ -129,6 +129,21 @@
                 }
             }
 
+            #setup {
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 1000;
+                background-color: black;
+                height: 45px;
+                width: 150px;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            #cluster-radius {
+                max-width: 100%;
+            }
+
         </style>
     </head>
     <body>
@@ -137,6 +152,17 @@
             <a href="#news">Pretty</a>
             <a href="#contact">Nice</a>
             <a href="#about">Buttons</a>
+
+        </div>
+        <div id="setup">
+            <input
+            id="cluster-radius"
+            type="range"
+            min="0"
+            max="1000"
+            value="0"
+            step="1"
+            ></input>
         </div>
         <ul id="mySidenav" class="sidenav">
             <div class="roadLine" id="myLine" style='height: 100%'></div>
