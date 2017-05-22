@@ -222,20 +222,48 @@ clusterisation = (data, map, route, size) => {
         return maxDist
     }
 
+    var merged = false
+
+    const checkCluster = (clust, clusters, D) => {
+        const radius =  d(centroid(clusters[clust].stops), computeMaxDist(clusters[clust])) + D
+
+        const nearClust = (c) => {
+            const innerStop = (stop) => {
+                return c != clust && d(stop, centroid(clusters[clust].stops)) < radius
+            }
+            return clusters[c].stops.some(innerStop)
+        }
+
+        if (Object.keys(clusters).some(nearClust)) {
+            merge = Object.keys(clusters).find(c => nearClust(c))
+            clusters[clust].stops = clusters[clust].stops.concat(clusters[merge].stops)
+            clusters.splice(merge, 1)
+            merged = true
+        } else {
+            merged = false
+        }
+        return clusters
+    }
+
+    const checkAll = (clusters, D) => {
+        var id = 0, maxid = clusters.length
+        while (id != maxid) {
+            clusters = checkCluster(id, clusters, D)
+            if (merged) {
+                --maxid
+                id = 0
+            } else {
+                ++id
+            }
+        }
+    }
+
     const computeClusters = (stops, D) => {
 
-        var clusters = [];
-        stops.forEach(stop => {
-            const nearClust = clusters.find(clust =>
-                d(stop, centroid(clust.stops)) < d(centroid(clust.stops), computeMaxDist(clust)) + D
-            );
-            if (nearClust) {
-                nearClust.stops.push(stop);
 
-            } else {
-                clusters.push({ stops: [stop] });
-            }
-        });
+        var clusters = stops.map(stop => Object({stops:[stop]}));
+
+        checkAll(clusters, D)
 
         clusters = clusters.map(cluster => L.circle([centroid(cluster.stops).lat, centroid(cluster.stops).lon], {
             stroke: false,
@@ -367,9 +395,6 @@ changeNav = () => {
         closeNav();
     }
 }
-
-
-
 
 
 
