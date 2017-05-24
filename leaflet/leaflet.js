@@ -72,8 +72,8 @@ const calculateViewportCenter = (stops) => {
 
 var featureClusters = []
 
-
 var currentRoute = 'none'
+var currentNav = 'mySidenav'
 
 drawScheme = (data, map, options = {}) => {
     var clicks = {}
@@ -91,15 +91,22 @@ drawScheme = (data, map, options = {}) => {
         } else if (r.type === 'tram') {
             icon = '&#x1F68B';
         }
-        var textRoute = `<div class="roadLine" id="myLine" style='height: 100%'></div><li><div id='myStop'><font size = 20>${icon} ${r.id}</font></div></li>`;
+        var textRoute = `<li style="background-color: #e6e6e6;"><div id='myStop'><font size = 20>${icon} ${r.id}</font></div></li>`;
         var featureShape = [], featureStops = [], shape = [];
+        clearMap = (map) => {
+            map.removeLayer(featureStops)
+            map.removeLayer(featureShape)
+            map.removeLayer(featureClusters)
+        }
+        document.getElementById('allStops').addEventListener('click', clearMap(map))
 
-
+        var begin = true;
 
         Object.values(r.trips).forEach(t=>{
             t.shape.forEach(elem=>shape.push(elem))
             t.stops.forEach(s=> {
-
+                if (begin) textRoute += `<div class="roadLine" id="myLine" style='height: 100%'></div>`
+                begin = false
                 textRoute += `<div class="roadLine" id="myLine"></div><div class="stopDot">&#9899;</div>`
                 +`<li onclick="fun([${data.stops[s].lat}, ${data.stops[s].lon}])"> ${data.stops[s].title}</li>`
 
@@ -144,7 +151,7 @@ drawScheme = (data, map, options = {}) => {
                 map.removeLayer(featureClusters)
                 featureClusters = clusterisation(data, map, r, options.D)
                 document.getElementById("mySidenav").innerText = "";
-                closeNav();
+                closeNav(currentNav);
             } else {
                 if (highlightedRoute != 'none') {
                     highlightedRoute.target.bringToBack()
@@ -176,7 +183,7 @@ drawScheme = (data, map, options = {}) => {
 
 
 
-                openNav();
+                openNav(currentNav);
 
 
 
@@ -188,6 +195,7 @@ drawScheme = (data, map, options = {}) => {
 
     })
 }
+
 
 
 
@@ -260,17 +268,23 @@ clusterisation = (data, map, route, size) => {
 
     const computeClusters = (stops, D) => {
 
-
         var clusters = stops.map(stop => Object({stops:[stop]}));
 
         checkAll(clusters, D)
 
-        clusters = clusters.map(cluster => L.circle([centroid(cluster.stops).lat, centroid(cluster.stops).lon], {
-            stroke: false,
-            radius: d(centroid(cluster.stops), computeMaxDist(cluster)) + D,
-            color: "#e300ff",
-            fillOpacity: 0.2
-        })
+
+        clusters = clusters.map(cluster => {
+            size = 0
+            cluster.stops.forEach(stop => {
+                ++size
+            })
+            return L.circle([centroid(cluster.stops).lat, centroid(cluster.stops).lon], {
+                stroke: false,
+                radius: d(centroid(cluster.stops), computeMaxDist(cluster)) + D,
+                color: "#e300ff",
+                fillOpacity: 0.2
+                }
+        ).bindPopup(size + ' stops')}
         )
         return clusters;
     }
@@ -279,13 +293,15 @@ clusterisation = (data, map, route, size) => {
     Object.values(route.trips).forEach(t=>{
         t.shape.forEach(elem=>shape.push(elem))
         t.stops.forEach(s=>{
-            stops.push({lat: data.stops[s].lat, lon: data.stops[s].lon})
+            stops.push({id: s, lat: data.stops[s].lat, lon: data.stops[s].lon})
         })
     })
 
     clusters = computeClusters(stops, size)
     return L.featureGroup(clusters)
 }
+
+
 
 
 drawClusters = (data, map, route, options = {}) => {
@@ -301,100 +317,115 @@ drawClusters = (data, map, route, options = {}) => {
 
 startApp = (data) => {
 
-var dark = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-    minZoom: 11,
-    maxZoom: 19
-});
+    var dark = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        subdomains: 'abcd',
+        minZoom: 11,
+        maxZoom: 19
+    });
 
-var light = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-    minZoom: 11,
-    maxZoom: 19
-});
+    var light = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        subdomains: 'abcd',
+        minZoom: 11,
+        maxZoom: 19
+    });
 
-var map = L.map('map', {
-    center: calculateViewportCenter(Object.values(data.stops)),
-    zoom: 11,
-    layers: [light],
-    zoomControl: false
-});
-
-
-drawScheme(data, map, {D: 0.01});
+    var map = L.map('map', {
+        center: calculateViewportCenter(Object.values(data.stops)),
+        zoom: 11,
+        layers: [light],
+        zoomControl: false
+    });
 
 
+    drawScheme(data, map, {D: 0.01});
 
-var busRoads = [], tramRoads = [], trolleyRoads = [];
 
-routes.bus.shape.forEach(f=>{
-    f.forEach(e=>busRoads.push(e))}
-)
-routes.tram.shape.forEach(f=>{
-    f.forEach(e=>tramRoads.push(e))}
-)
-routes.trolley.shape.forEach(f=>{
-    f.forEach(e=>trolleyRoads.push(e))
+    var busRoads = [], tramRoads = [], trolleyRoads = [];
+
+    routes.bus.shape.forEach(f=>{
+        f.forEach(e=>busRoads.push(e))}
+    )
+    routes.tram.shape.forEach(f=>{
+        f.forEach(e=>tramRoads.push(e))}
+    )
+    routes.trolley.shape.forEach(f=>{
+        f.forEach(e=>trolleyRoads.push(e))
+    }
+    )
+    busRoads = L.featureGroup(busRoads)
+    tramRoads = L.featureGroup(tramRoads)
+    trolleyRoads = L.featureGroup(trolleyRoads)
+
+    var baseMaps = {
+        "Светлая тема": light,
+        "Темная тема": dark
+    };
+
+    var overlayMaps = {
+        "Автобусы": busRoads,
+        "Трамваи": tramRoads,
+        "Троллейбусы": trolleyRoads
+    };
+
+    //L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    L.control.zoom({position:'topright'}).addTo(map);
+    map.addLayer(busRoads)
+    map.addLayer(tramRoads)
+    map.addLayer(trolleyRoads)
+
+
+    fun = (latlng) => map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
+
+    const clusterControl = document.getElementById('cluster-radius');
+        clusterControl.addEventListener('input', () => {
+            const clusterSize = Number(clusterControl.value);
+
+            drawClusters(data, map, currentRoute, {D: clusterSize});
+        })
+    document.getElementById("button1").style.top = "50px";
+
 }
-)
-busRoads = L.featureGroup(busRoads)
-tramRoads = L.featureGroup(tramRoads)
-trolleyRoads = L.featureGroup(trolleyRoads)
-
-var baseMaps = {
-    "Светлая тема": light,
-    "Темная тема": dark
-};
-
-var overlayMaps = {
-    "Автобусы": busRoads,
-    "Трамваи": tramRoads,
-    "Троллейбусы": trolleyRoads
-};
-
-//L.control.layers(baseMaps, overlayMaps).addTo(map);
-
-L.control.zoom({position:'topright'}).addTo(map);
-map.addLayer(busRoads)
-map.addLayer(tramRoads)
-map.addLayer(trolleyRoads)
 
 
-fun = (latlng) => map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
+sideNavs = ["mySidenav", "mySidenav1"]
+buttons = ["button0", "button1"]
 
-const clusterControl = document.getElementById('cluster-radius');
-    clusterControl.addEventListener('input', () => {
-        const clusterSize = Number(clusterControl.value);
 
-        drawClusters(data, map, currentRoute, {D: clusterSize});
 
+openNav = (id) => {
+    currentNav = id
+    sideNavs.forEach(panel => {
+        if (panel === id) {
+            document.getElementById(panel).style.left = "0px";
+        } else {
+            document.getElementById(panel).style.left = "-350px";
+        }
     })
-
+    buttons.forEach(btn => {
+        document.getElementById(btn).style.marginLeft = "350px";
+    })
 }
 
-
-
-openNav = () => {
-    //document.getElementById("button0").innerText = "\u2636"
-    document.getElementById("mySidenav").style.left = "0px";
-    document.getElementById("button0").style.marginLeft = "350px";
+closeNav = (id) => {
+    sideNavs.forEach(panel => {
+        document.getElementById(panel).style.left = "-350px";
+    })
+    buttons.forEach(btn => {
+        document.getElementById(btn).style.marginLeft = "0px";
+    })
 }
 
-closeNav = () => {
-    //document.getElementById("button0").innerText = "\u2630"
-    document.getElementById("mySidenav").style.left = "-350px";
-    document.getElementById("button0").style.marginLeft = "0px";
-}
-
-changeNav = () => {
-    if (document.getElementById("mySidenav").style.left != "0px"){
-        openNav();
+changeNav = (id) => {
+    if (document.getElementById(id).style.left != "0px"){
+        openNav(id);
     } else {
-        closeNav();
+        closeNav(id);
     }
 }
+
 
 
 

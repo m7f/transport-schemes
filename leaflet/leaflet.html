@@ -100,7 +100,7 @@
             }
 
             .sidenav li:hover, .offcanvas a:focus {
-                background-color: #ddd;
+                background-color: #879a9f;
                 color: #111;
             }
 
@@ -113,11 +113,13 @@
                 font-size: 36px;
                 display: block;
                 text-align: center;
-                padding: 5px 14px;
+                height: 50px;
+                width: 50px;
                 text-decoration: none;
                 transition: margin-left .5s;
                 z-index: 99;
             }
+
 
             @media screen and (max-height: 450px) {
                 .sidenav {
@@ -130,18 +132,16 @@
             }
 
             #setup {
-                position: fixed;
-                top: 0;
-                right: 0;
                 z-index: 1000;
-                background-color: black;
-                height: 45px;
-                width: 150px;
-                padding: 10px;
-                box-sizing: border-box;
+                background-color: rgba(0,0,0,0);
+                position: absolute;
+                display: block;
+                height: 50px;
+                width: 350px;
             }
             #cluster-radius {
-                max-width: 100%;
+                height: 100;
+                width: 100;
             }
 
         </style>
@@ -154,21 +154,28 @@
             <a href="#about">Buttons</a>
 
         </div>
-        <div id="setup">
-            <input
-            id="cluster-radius"
-            type="range"
-            min="0"
-            max="300"
-            value="0"
-            step="1"
-            ></input>
-        </div>
+
         <ul id="mySidenav" class="sidenav">
-            <div class="roadLine" id="myLine" style='height: 100%'></div>
+
+        </ul>
+        <ul id="mySidenav1" class="sidenav">
+            <li>
+                Clusterisation
+                <input
+                id="cluster-radius"
+                type="range"
+                min="0"
+                max="300"
+                value="0"
+                step="0.1"
+                ></input>
+            </li>
+            <li id='allStops'>Show all stops</li>
         </ul>
         <div class="mapwrap" id="myMap">
-            <a href="#" class="closebtn" id="button0" onclick="changeNav()">&#9776;</a>
+            <a href="#" class="closebtn" id="button0" onclick="changeNav('mySidenav')">&#9776;</a>
+            <a href="#" class="closebtn" id="button1" onclick="changeNav('mySidenav1')">&#128295;</a>
+
             <div id="map"></div>
         </div>
     </body>
