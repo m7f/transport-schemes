@@ -21,8 +21,6 @@
                 transition: margin-left .5s;
             }
 
-
-
             #map {
                 height: 100%;
                 width: 100%;
@@ -100,7 +98,7 @@
             }
 
             .sidenav li:hover, .offcanvas a:focus {
-                background-color: #879a9f;
+                background-color: #aec8d1;
                 color: #111;
             }
 
@@ -160,7 +158,12 @@
         </ul>
         <ul id="mySidenav1" class="sidenav">
             <li>
-                Clusterisation
+                Clusterisation<br>
+                <div>
+                    <input type="radio" id='cluster-type-r1' name="cluster-type" value="off" checked> Turn off<br>
+                    <input type="radio" id='cluster-type-r2' name="cluster-type" value="fast"> Fast<br>
+                    <input type="radio" id='cluster-type-r3' name="cluster-type" value="hard"> Accurate (very slow!)
+                </div>
                 <input
                 id="cluster-radius"
                 type="range"
@@ -168,9 +171,27 @@
                 max="300"
                 value="0"
                 step="0.1"
+                onchange="change()"
                 ></input>
+                <script>
+                    function change() {
+                        document.getElementById('cluster-radius-value').innerHTML = document.getElementById('cluster-radius').value + ' meters'
+                    }
+                </script>
+                <span id="cluster-radius-value">0 meters</span>
+                <br>
+                <button type="button" id="cluster-button">Compute</button>
+
             </li>
-            <li id='allStops'>Show all stops</li>
+            <li>
+                Rendering
+                <div>
+                    <input type="checkbox" id='render-type-c1' name="render-type" value="stops" > Stops<br>
+                    <input type="checkbox" id='render-type-c2' name="render-type" value="routes" checked> Routes<br>
+                </div>
+                <br>
+                <button type="button" id="render-button">Render</button>
+            </li>
         </ul>
         <div class="mapwrap" id="myMap">
             <a href="#" class="closebtn" id="button0" onclick="changeNav('mySidenav')">&#9776;</a>
