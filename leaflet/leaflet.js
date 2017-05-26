@@ -228,6 +228,7 @@ const getRoutesFeature = (data, map, routes) => {
     clicks = {}
     var highlightedRoute = 'none';
     var highlightedStops = 'none';
+    var highlightedId = 'none';
     var featureRoutes = []
 
     routes.forEach(r => {
@@ -284,6 +285,7 @@ const getRoutesFeature = (data, map, routes) => {
             if (!clicks[r]) {
                 highlightedRoute = 'none';
                 highlightedStops = 'none';
+                highlightedId = 'none';
                 map.removeLayer(onMap.featureStops)
                 map.removeLayer(onMap.featureClusters)
                 e.target.bringToBack()
@@ -291,6 +293,8 @@ const getRoutesFeature = (data, map, routes) => {
                 document.getElementById("mySidenav").innerText = "";
                 closeNav(currentNav);
             } else {
+                clicks[highlightedId] = !clicks[highlightedId]
+                highlightedId = r
                 if (highlightedRoute != 'none') {
                     highlightedRoute.target.bringToBack()
                     highlightedRoute.target.setStyle(colorScheme.dehighlightRoute)
