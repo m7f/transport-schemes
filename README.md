@@ -20,7 +20,7 @@
 ![img](http://rss-novini.net/images/stories/polezno/varna-karta.jpg)
 
 * неграмотно подобранная палитра цветов
-![img](http://www.krakow.ru/guide/image/mapka_autobus.jpg)
+![img](http://u.rybinskcity.ru/c/images/pages/map_transport.jpg)
 
 * запутанность линий в местах их скопления
 ![img](http://www.200stran.ru/images/maps/1243333691_92ade9.jpg)
@@ -78,7 +78,7 @@
 * http://artgorbunov.ru/bb/soviet/20160105/
 * http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif
 * http://rss-novini.net/images/stories/polezno/varna-karta.jpg
-* http://www.krakow.ru/guide/image/mapka_autobus.jpg
+* http://u.rybinskcity.ru/c/images/pages/map_transport.jpg
 * http://www.200stran.ru/images/maps/1243333691_92ade9.jpg
 * http://transport.orgp.spb.ru/
 * http://pitertransport.com/
