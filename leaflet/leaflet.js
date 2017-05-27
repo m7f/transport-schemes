@@ -34,12 +34,7 @@ const colorScheme = {
         color: '#87939F'
     },
     cluster: {
-        stroke: false,
-        radius: 20,
-        color: "#e300ff",
-        weight: 3,
-        opacity: 1,
-        fillOpacity: 0.2
+        color: "#b808bb"
     }
 }
 
@@ -214,6 +209,14 @@ const getStopsFeature = (data, map, stops, style) => {
             e.target.setStyle(colorScheme.dehighlightStop)
         })
         .on('click', (e)=>{
+            aim = (latlng) => {
+                map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
+            }
+            var textRoute = `<li style="background-color: #e6e6e6;" onclick="aim([${data.stops[s].lat}, ${data.stops[s].lon}])"> ${data.stops[s].title}</li>`
+            stopsToRoutes[s].forEach(r => {
+                textRoute += `<li onclick="">${data.routes[r].id}</li>`
+            })
+            document.getElementById("mySidenav").innerHTML = textRoute;
             e.target.setStyle({color: 'rgb(1, 255, 164)'})
             map.removeLayer(onMap.featureRoutes)
             map.removeLayer(onMap.featureStops)
@@ -229,7 +232,6 @@ const getStopsFeature = (data, map, stops, style) => {
             map.addLayer(onMap.featureRoutes)
             map.addLayer(onMap.featureStops)
         })
-        .bindPopup(`${data.stops[s].title}`)
     )
     })
     return L.featureGroup(featureStops)
@@ -287,7 +289,6 @@ const getRoutesFeature = (data, map, routes) => {
             aim = (latlng) => {
                 map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
             }
-
             var stops = []
             var textRoute = `<li style="background-color: #e6e6e6;"><div id='myStop'><font size = 20>${icon} ${data.routes[r].id}</font></div></li>`;
             var begin = true;
@@ -309,7 +310,7 @@ const getRoutesFeature = (data, map, routes) => {
                 map.removeLayer(onMap.featureClusters)
                 e.target.bringToBack()
                 e.target.setStyle(colorScheme.dehighlightRoute)
-                document.getElementById("mySidenav").innerText = "";
+                document.getElementById("mySidenav").innerHTML = "";
                 closeNav(currentNav);
             } else {
                 clicks[highlightedId] = !clicks[highlightedId]
@@ -342,19 +343,21 @@ const getRoutesFeature = (data, map, routes) => {
 
 const getStopsCentres = (data, map, stopsLatLon, style) => {
     var featureStops = [];
-    var text = ''
     stopsLatLon.forEach(s => {
-        text = ''
-        s.ids.forEach(id => text += data.stops[id].title + '<br>')
         return featureStops.push(L.circleMarker([s.lat, s.lon], colorScheme.dehighlightStop)
-        .bindPopup(text)
         .setStyle(style)
         .on('mouseover', (e)=>{
             e.target.setStyle(colorScheme.highlightStop)
         })
         .on('mouseout', (e)=>{
             e.target.setStyle(colorScheme.dehighlightStop)
-        }))
+        })
+        .on('click', (e) => {
+            var text = ''
+            s.ids.forEach(id => text += `<li>${data.stops[id].title}</li>`)
+            document.getElementById("mySidenav").innerHTML = text
+        })
+    )
     })
     return L.featureGroup(featureStops)
 }
@@ -460,7 +463,7 @@ const start = data => {
         }
         if (renderType[0].checked) {
             onMap.currentStops = Object.keys(data.stops).filter(stop => (data.stops[stop].status === 'active'))
-            onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme['unselectedStop'])
+            onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme.unselectedStop)
             map.addLayer(onMap.featureStops)
         }
     }
@@ -478,7 +481,7 @@ const start = data => {
             document.getElementById('cluster-radius-value').innerHTML = '0 meters'
             map.removeLayer(onMap.featureClusters)
             map.removeLayer(onMap.featureStops)
-            onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme['unselectedStop'])
+            onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme.unselectedStop)
             map.addLayer(onMap.featureStops)
         } else {
             map.removeLayer(onMap.featureClusters)
@@ -488,7 +491,7 @@ const start = data => {
             onMap.featureClusters.bringToBack()
 
             map.removeLayer(onMap.featureStops)
-            onMap.featureStops = getStopsCentres(data, map, onMap.currentClusterCentres, )
+            onMap.featureStops = getStopsCentres(data, map, onMap.currentClusterCentres, colorScheme.cluster)
             map.addLayer(onMap.featureStops)
         }
     })
