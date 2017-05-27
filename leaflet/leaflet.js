@@ -534,9 +534,48 @@ changeNav = (id) => {
 }
 
 
-
-
-
-
-
 fetch('../data.json').then(r=>r.json()).then(data=>start(data));
+
+
+
+/* in development */
+
+var graph = {
+    vertex:[],
+    edge:[]
+}
+
+const dijkstra = (start) => {
+    var distance = {}, prev = {}, vertices = {}, u;
+
+    graph.vertex.forEach(function(v_i) {
+        distance[v_i] = Infinity;
+        prev[v_i] = null;
+        vertices[v_i] = true;
+    });
+
+    distance[start] = 0;
+
+    while (Object.keys(vertices).length > 0) {
+        u = Object.keys(vertices).reduce(function(prev, v_i) {
+            return distance[prev] > distance[v_i] ? +v_i : prev;
+        }, Object.keys(vertices)[0]);
+
+        graph.edge.filter(function(edge) {
+            var from = edge[0],
+            to 	 = edge[1];
+            return from===u || to===u;
+        })
+        .forEach(function(edge) {
+            var to = edge[1]===u ? edge[0] : edge[1],
+            dist = distance[u] + edge[2];
+
+            if (distance[to] > dist) {
+                distance[to] = dist;
+                prev[to] = u;
+            }
+        });
+        delete vertices[u];
+    }
+    return distance;
+};
