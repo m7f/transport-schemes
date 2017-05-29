@@ -15,23 +15,23 @@
 ![img](https://img.artlebedev.ru/everything/metro/map3/process-2/metro-map-2016-process-intr-emphasis-5-1.gif)
 
 Схемы, наложенные на карту, не требуют таких затрат, но имеют существенные недостатки:
+
 * нагромождение параллельных маршрутов
-
 ![img](http://rss-novini.net/images/stories/polezno/varna-karta.jpg)
+
 * неграмотно подобранная палитра цветов
+![img](http://u.rybinskcity.ru/c/images/pages/map_transport.jpg)
 
-![img](http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif)
 * запутанность линий в местах их скопления
-
 ![img](http://www.200stran.ru/images/maps/1243333691_92ade9.jpg)
-* много как лишнего текста, так и неиспользованных пустот
 
+* много как лишнего текста, так и неиспользованных пустот
 ![img](http://artgorbunov.ru/bb/soviet/20160105/london-night-buses@fx.png)
 
 
 Как результат, в них очень сложно разобраться простому пассажиру и выглядят они сложными и непонятными. Данная проблема [рассматривается](http://artgorbunov.ru/bb/soviet/20160105/) в цикле статей Ильи Бирмана.
 
-Возвращаясь к рассматриваемому нами городу, схема трамвайных маршрутов в Санкт-Петербурге выглядит вот так:
+Возвращаясь к рассматриваемому нами городу, схема трамвайных маршрутов в Санкт-Петербурге выглядит так:
 ![img](http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif)
 Эту схему хочется упростить.
 
@@ -78,7 +78,7 @@
 * http://artgorbunov.ru/bb/soviet/20160105/
 * http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif
 * http://rss-novini.net/images/stories/polezno/varna-karta.jpg
-* http://gorod-orel.ru/transport/imgtransport/karta-trolley.gif
+* http://u.rybinskcity.ru/c/images/pages/map_transport.jpg
 * http://www.200stran.ru/images/maps/1243333691_92ade9.jpg
 * http://transport.orgp.spb.ru/
 * http://pitertransport.com/
