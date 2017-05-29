@@ -70,7 +70,7 @@ format = () => {
         })
         console.log(id + ' formatted!')
     })
-    fs.writeFileSync(path.join(__dirname, '../../data.json'), JSON.stringify(DATA, null, 4));
+    fs.writeFileSync(path.join(__dirname, '../../data.json'), JSON.stringify(DATA));
     console.log('DONE!')
 }
 
