@@ -5,7 +5,7 @@
         <title>SPb transport</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"/>
         <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-        <script src="leaflet.js"></script>
+        <script src="leaflet/leaflet.js"></script>
         <style>
             body, html {
                 padding: 0;
@@ -14,7 +14,7 @@
 
             .mapwrap {
                 position: absolute;
-                top: 45px;
+                top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
@@ -49,37 +49,11 @@
                 height: 100px;
             }
 
-            .topnav {
-                background-color: black ;
-                overflow: hidden;
-                height: 45px;
-            }
-
-            .topnav a {
-                float: left;
-                display: block;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-
-            .topnav a:hover {
-                background-color: #ddd;
-                color: black;
-            }
-
-            .topnav a.active {
-                background-color: #4CAF50;
-                color: white;
-            }
-
             .sidenav {
                 width: 350px;
                 position: fixed;
                 z-index: 99;
-                top: 45px;
+                top: 0px;
                 left: -350px;
                 bottom: 0;
                 background-color: rgba(255, 255, 255, 0.9);
@@ -145,14 +119,6 @@
         </style>
     </head>
     <body>
-        <div id="myTopnav" class="topnav">
-            <a href="#home">Four</a>
-            <a href="#news">Pretty</a>
-            <a href="#contact">Nice</a>
-            <a href="#about">Buttons</a>
-
-        </div>
-
         <ul id="mySidenav" class="sidenav">
 
         </ul>

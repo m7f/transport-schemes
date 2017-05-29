@@ -1,19 +1,24 @@
+var myRenderer = L.canvas({padding: 0.5})
 const colorScheme = {
     bus: {
         color: '#0779D0',
-        weight: 7
+        weight: 7,
+        renderer: myRenderer
     },
     tram: {
         color: '#FF0000',
-        weight: 7
+        weight: 7,
+        renderer: myRenderer
     },
     trolley: {
         color: '#00B41F',
-        weight: 7
+        weight: 7,
+        renderer: myRenderer
     },
     dehighlightRoute: {
         color: '#87939F',
         weight: 3,
+        renderer: myRenderer
     },
     highlightStop: {
         stroke: true,
@@ -21,20 +26,24 @@ const colorScheme = {
         fillColor: "#FFFFFF",
         weight: 3,
         opacity: 1,
-        fillOpacity: 1
+        fillOpacity: 1,
+        renderer: myRenderer
     },
     dehighlightStop: {
         radius: 8,
         fillColor: "#FFFFFF",
         weight: 6,
         opacity: 1,
-        fillOpacity: 1
+        fillOpacity: 1,
+        renderer: myRenderer
     },
     unselectedStop: {
-        color: '#87939F'
+        color: '#87939F',
+        renderer: myRenderer
     },
     cluster: {
-        color: "#b808bb"
+        color: "#b808bb",
+        renderer: myRenderer
     }
 }
 
@@ -144,7 +153,8 @@ clusterisation = (data, map, stops, size, type) => {
                 stroke: false,
                 radius: d(centroid(cluster.stops), computeMaxDist(cluster)) + D,
                 color: "#e300ff",
-                fillOpacity: 0.2
+                fillOpacity: 0.2,
+                renderer: myRenderer
                 }
         ).bindPopup(size + ' stops')}
         )
@@ -217,6 +227,7 @@ const getStopsFeature = (data, map, stops, style) => {
                 textRoute += `<li onclick="">${data.routes[r].id}</li>`
             })
             document.getElementById("mySidenav").innerHTML = textRoute;
+            openNav("mySidenav");
             e.target.setStyle({color: 'rgb(1, 255, 164)'})
             map.removeLayer(onMap.featureRoutes)
             map.removeLayer(onMap.featureStops)
@@ -319,7 +330,6 @@ const getRoutesFeature = (data, map, routes) => {
                     highlightedRoute.target.bringToBack()
                     highlightedRoute.target.setStyle(colorScheme.dehighlightRoute)
                     map.removeLayer(highlightedStops)
-
                 }
                 highlightedRoute = e;
                 map.removeLayer(onMap.featureStops)
@@ -332,7 +342,7 @@ const getRoutesFeature = (data, map, routes) => {
                 onMap.featureStops.bringToFront()
                 e.target.setStyle(colorScheme[data.routes[r].type])
                 document.getElementById("mySidenav").innerHTML = textRoute;
-                openNav(currentNav);
+                openNav("mySidenav");
 
             }const clusterButton = document.getElementById('cluster-button');
         })
@@ -356,6 +366,7 @@ const getStopsCentres = (data, map, stopsLatLon, style) => {
             var text = ''
             s.ids.forEach(id => text += `<li>${data.stops[id].title}</li>`)
             document.getElementById("mySidenav").innerHTML = text
+            openNav("mySidenav");
         })
     )
     })
