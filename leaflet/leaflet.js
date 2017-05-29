@@ -190,7 +190,8 @@ clusterisation = (data, map, stops, size, type) => {
                 stroke: false,
                 radius: Number(cluster.stops.length) * D / 70,
                 color: "#e300ff",
-                fillOpacity: 0.2
+                fillOpacity: 0.2,
+                renderer: myRenderer
                 }
         ).bindPopup(size + ' stops')}
         )
