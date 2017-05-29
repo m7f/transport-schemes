@@ -39,7 +39,7 @@ const getIdList = () => {
                 data[stop[0]] = {
                     lat: Number(sm.inverse([stop[2].lon, stop[2].lat])[1].toFixed(6)),
                     lon: Number(sm.inverse([stop[2].lon, stop[2].lat])[0].toFixed(6)),
-                    title: stop[1],
+                    title: stop[1].replace('<',''),
                     status: 'inactive'
                 }
             })
