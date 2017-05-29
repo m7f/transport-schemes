@@ -545,7 +545,7 @@ changeNav = (id) => {
 }
 
 
-fetch('../data.json').then(r=>r.json()).then(data=>start(data));
+fetch('data.json').then(r=>r.json()).then(data=>start(data));
 
 
 
