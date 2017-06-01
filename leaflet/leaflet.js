@@ -223,7 +223,7 @@ const getStopsFeature = (data, map, stops, style) => {
             aim = (latlng) => {
                 map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
             }
-            var textRoute = `<li style="background-color: #e6e6e6;" onclick="aim([${data.stops[s].lat}, ${data.stops[s].lon}])"> ${data.stops[s].title}</li>`
+            var textRoute = `<li style="background-color: #e6e6e6;" onclick="aim([${data.stops[s].lat}, ${data.stops[s].lon}])"> Маршруты, проходящие через остановку<br>${data.stops[s].title}</li>`
             stopsToRoutes[s].forEach(r => {
                 textRoute += `<li onclick="">${data.routes[r].id}</li>`
             })
@@ -302,7 +302,7 @@ const getRoutesFeature = (data, map, routes) => {
                 map.setView(latlng, 15, {"animate": true,"pan": {"duration": 0.5}});
             }
             var stops = []
-            var textRoute = `<li style="background-color: #e6e6e6;"><div id='myStop'><font size = 20>${icon} ${data.routes[r].id}</font></div></li>`;
+            var textRoute = `<li style="background-color: #e6e6e6;"><div id='myStop'>Информация по маршруту<br><font size = 20>${icon} ${data.routes[r].id}</font></div></li>`;
             var begin = true;
             Object.values(data.routes[r].trips).forEach(t=>{
                 t.stops.forEach(s => {
@@ -364,7 +364,7 @@ const getStopsCentres = (data, map, stopsLatLon, style) => {
             e.target.setStyle(colorScheme.dehighlightStop)
         })
         .on('click', (e) => {
-            var text = ''
+            var text = `<li style="background-color: #e6e6e6;">Остановки в кластере`
             s.ids.forEach(id => text += `<li>${data.stops[id].title}</li>`)
             document.getElementById("mySidenav").innerHTML = text
             openNav("mySidenav");
@@ -457,8 +457,7 @@ const start = data => {
     const renderButton = document.getElementById('render-button');
 
     var clusterType = getClusterType()
-    var renderType = [document.getElementById('render-type-c1'),
-    document.getElementById('render-type-c2')];
+    var renderType = [document.getElementById('render-type-c1'), document.getElementById('render-type-c2')];
 
 
     const render = (renderType) => {
@@ -468,17 +467,38 @@ const start = data => {
         clusterControl.value = 0
         document.getElementById('cluster-radius-value').innerHTML = '0 meters'
         document.getElementById('cluster-type-r1').checked = true
-        if (renderType[1].checked) {
-            onMap.currentRoutes = Object.keys(data.routes)
-            onMap.featureRoutes = getRoutesFeature(data, map, onMap.currentRoutes)
-            map.addLayer(onMap.featureRoutes)
-        }
+        onMap.currentRoutes = Object.keys(data.routes)
+        onMap.featureRoutes = getRoutesFeature(data, map, onMap.currentRoutes)
+        map.addLayer(onMap.featureRoutes)
+        renderType[0].checked = false
+        renderType[1].checked = true
+    }
+
+    renderType[0].addEventListener('click', () => {
+        map.removeLayer(onMap.featureStops)
+        map.removeLayer(onMap.featureClusters)
+        clusterControl.value = 0
+        document.getElementById('cluster-radius-value').innerHTML = '0 meters'
+        document.getElementById('cluster-type-r1').checked = true
+        onMap.currentStops = []
+        onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme.unselectedStop)
         if (renderType[0].checked) {
             onMap.currentStops = Object.keys(data.stops).filter(stop => (data.stops[stop].status === 'active'))
             onMap.featureStops = getStopsFeature(data, map, onMap.currentStops, colorScheme.unselectedStop)
             map.addLayer(onMap.featureStops)
         }
-    }
+
+    })
+    renderType[1].addEventListener('click', () => {
+        map.removeLayer(onMap.featureRoutes)
+        onMap.currentRoutes = []
+        onMap.featureRoutes = getRoutesFeature(data, map, onMap.currentRoutes)
+        if (renderType[1].checked) {
+            onMap.currentRoutes = Object.keys(data.routes)
+            onMap.featureRoutes = getRoutesFeature(data, map, onMap.currentRoutes)
+            map.addLayer(onMap.featureRoutes)
+        }
+    })
 
     render(renderType)
 
@@ -576,10 +596,10 @@ const dijkstra = (start) => {
         graph.edge.filter(function(edge) {
             var from = edge[0],
             to 	 = edge[1];
-            return from===u || to===u;
+            return from === u || to === u;
         })
         .forEach(function(edge) {
-            var to = edge[1]===u ? edge[0] : edge[1],
+            var to = edge[1] === u ? edge[0] : edge[1],
             dist = distance[u] + edge[2];
 
             if (distance[to] > dist) {

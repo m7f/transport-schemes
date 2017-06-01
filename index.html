@@ -111,6 +111,19 @@
                 height: 50px;
                 width: 350px;
             }
+
+            #legend {
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 1000;
+                background-color: rgba(255, 255, 255, 0.9);
+                height: 20px;
+                width: 650px;
+                padding: 0px;
+                box-sizing: border-box;
+              }
+
             #cluster-radius {
                 height: 100;
                 width: 100;
@@ -119,10 +132,26 @@
         </style>
     </head>
     <body>
-        <ul id="mySidenav" class="sidenav">
 
+        <div id="legend">
+            <font color = #0779D0> &#x1F68C; Автобусы
+            <span style="display:inline-block; width: 10px;"></span>
+            <font color = #FF0000> &#x1F68B; Трамваи
+            <span style="display:inline-block; width: 10px;"></span>
+            <font color = #00B41F> &#x1F68E; Троллейбусы
+            <span style="display:inline-block; width: 10px;"></span>
+            <font color = black>
+            <span style="display:inline-block; width: 10px;"></span>
+            &#9776; Информация о карте
+            <span style="display:inline-block; width: 10px;"></span>
+            &#128295; Меню настроек
+
+        </div>
+        <ul id="mySidenav" class="sidenav">
+            <center>Здесь будет отображаться информация о маршрутах и остановках.</center>
         </ul>
         <ul id="mySidenav1" class="sidenav">
+            <center>Меню настроек</center>
             <li>
                 Clusterisation<br>
                 <div>
@@ -156,7 +185,7 @@
                     <input type="checkbox" id='render-type-c2' name="render-type" value="routes" checked> Routes<br>
                 </div>
                 <br>
-                <button type="button" id="render-button">Render</button>
+                <button type="button" id="render-button">Reload</button>
             </li>
         </ul>
         <div class="mapwrap" id="myMap">
