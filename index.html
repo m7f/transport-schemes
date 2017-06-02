@@ -161,10 +161,10 @@
 
         </div>
         <ul id="mySidenav" class="sidenav">
-            <center>Здесь будет отображаться информация о маршрутах и остановках.</center>
+            <center></center>
         </ul>
         <ul id="mySidenav1" class="sidenav">
-            <center>Меню настроек</center>
+            <center></center>
             <li>
                 Clusterisation<br>
                 <div>
@@ -200,9 +200,12 @@
             </li>
         </ul>
         <div class="mapwrap" id="myMap">
-            <a href="#" class="closebtn" id="button0" onclick="changeNav('mySidenav')">&#9776;</a>
-            <a href="#" class="closebtn" id="button1" onclick="changeNav('mySidenav1')" style="top:50px">&#128295;</a>
-            <a href="#" class="closebtn" id="render-button" style="top:100px">&#10227;</a>
+            <a href="#" class="closebtn" id="button0" onclick="changeNav('mySidenav')"
+            title="Здесь будет отображаться информация о маршрутах и остановках">&#9776;</a>
+            <a href="#" class="closebtn" id="button1" onclick="changeNav('mySidenav1')" style="top:50px"
+            title="Меню настроек">&#128295;</a>
+            <a href="#" class="closebtn" id="render-button" style="top:100px"
+            title="Сбросить карту">&#10227;</a>
             <div id="map"></div>
         </div>
     </body>
