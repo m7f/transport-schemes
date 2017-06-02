@@ -430,7 +430,7 @@ const getClusterType = () => {
 
 const start = data => {
 
-    document.getElementById("button1").style.top = "50px";
+
 
     computeGraph(data)
     computeStopsToRoutes(data)
@@ -532,7 +532,7 @@ const start = data => {
 }
 
 sideNavs = ["mySidenav", "mySidenav1"]
-buttons = ["button0", "button1"]
+buttons = ["button0", "button1",  "render-button"]
 
 openNav = (id) => {
     currentNav = id

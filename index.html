@@ -116,13 +116,12 @@
                 position: fixed;
                 top: 0;
                 right: 0;
-                z-index: 1000;
+                z-index: 1001;
                 background-color: rgba(255, 255, 255, 0.9);
-                height: 20px;
-                width: 650px;
-                padding: 0px;
+                width: 250px;
+                padding: 5px 5px 5px 5px;
                 box-sizing: border-box;
-              }
+            }
 
             #cluster-radius {
                 height: 100;
@@ -132,19 +131,33 @@
         </style>
     </head>
     <body>
-
         <div id="legend">
-            <font color = #0779D0> &#x1F68C; Автобусы
-            <span style="display:inline-block; width: 10px;"></span>
-            <font color = #FF0000> &#x1F68B; Трамваи
-            <span style="display:inline-block; width: 10px;"></span>
-            <font color = #00B41F> &#x1F68E; Троллейбусы
-            <span style="display:inline-block; width: 10px;"></span>
-            <font color = black>
-            <span style="display:inline-block; width: 10px;"></span>
-            &#9776; Информация о карте
-            <span style="display:inline-block; width: 10px;"></span>
-            &#128295; Меню настроек
+            <p style="text-align:left;color:#0779D0;background-color:#f1f1f1;">
+            &#x1F68C;
+            <span style="float:right;">Автобусы</span>
+            </p>
+            <p style="text-align:left;color:#FF0000;background-color:#f1f1f1;">
+            &#x1F68B;
+            <span style="float:right;">Трамваи</span>
+            </p>
+            <p style="text-align:left;color:#00B41F;background-color:#f1f1f1;">
+            &#x1F68E;
+            <span style="float:right;">Троллейбусы</span>
+            </p>
+            <p style="text-align:left;background-color:#f1f1f1;">
+            &#9776;
+            <span style="float:right;">Информация о карте</span>
+            </p>
+            <p style="text-align:left;background-color:#f1f1f1;">
+            &#128295;
+            <span style="float:right;">Меню настроек</span>
+            </p>
+            <p style="text-align:left;background-color:#f1f1f1;">
+            &#10227;
+            <span style="float:right;">Сброс карты</span>
+            </p>
+
+
 
         </div>
         <ul id="mySidenav" class="sidenav">
@@ -184,14 +197,12 @@
                     <input type="checkbox" id='render-type-c1' name="render-type" value="stops" > Stops<br>
                     <input type="checkbox" id='render-type-c2' name="render-type" value="routes" checked> Routes<br>
                 </div>
-                <br>
-                <button type="button" id="render-button">Reload</button>
             </li>
         </ul>
         <div class="mapwrap" id="myMap">
             <a href="#" class="closebtn" id="button0" onclick="changeNav('mySidenav')">&#9776;</a>
-            <a href="#" class="closebtn" id="button1" onclick="changeNav('mySidenav1')">&#128295;</a>
-
+            <a href="#" class="closebtn" id="button1" onclick="changeNav('mySidenav1')" style="top:50px">&#128295;</a>
+            <a href="#" class="closebtn" id="render-button" style="top:100px">&#10227;</a>
             <div id="map"></div>
         </div>
     </body>
