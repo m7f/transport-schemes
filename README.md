@@ -19,9 +19,7 @@
 Для корректной работы программы потребуются модули `cheerio` и `sphericalmercator`, установить их можно с помощью `npm`.
 
     cd transport-schemes
-    npm init
-    npm install --save sphericalmercator
-    npm install --save cheerio
+    npm install
 
 Для сбора информации и получения файла с данными необходимо запустить `scraper.js`. 
     
