@@ -151,7 +151,7 @@
 ![img](http://u.rybinskcity.ru/c/images/pages/map_transport.jpg)
 
 * запутанность линий в местах их скопления
-![img](http://www.200stran.ru/images/maps/1243333691_92ade9.jpg)
+![img](https://s-media-cache-ak0.pinimg.com/originals/e0/93/f0/e093f0ea46010e61ed87547df77b0db3.gif)
 
 * много как лишнего текста, так и неиспользованных пустот
 ![img](http://artgorbunov.ru/bb/soviet/20160105/london-night-buses@fx.png)
@@ -165,13 +165,20 @@
 
 Автоматизация данного процесса значительно улучшит качество и простоту схем, сократив расходы на их разработку. В итоге получатся минималистичные и содержательные схемы, не уступающие ведущим дизайнерским.
 
+### Заключение
+
+В результате я остался доволен проектом и тем, что удалось реализовать.
+В ходе проекта я приобрел навыки работы с JavaScript, научился сбору данных и работе с ними.
+Полученные знания помогут мне в разработке веб-приложений и в понимании того, как работать с фронтендом.
+
+
 Источники:
 * https://www.artlebedev.ru/metro/map3/
 * http://artgorbunov.ru/bb/soviet/20160105/
 * http://img.tourister.ru/files/8/7/4/8/9/0/1/original.gif
 * http://rss-novini.net/images/stories/polezno/varna-karta.jpg
 * http://u.rybinskcity.ru/c/images/pages/map_transport.jpg
-* http://www.200stran.ru/images/maps/1243333691_92ade9.jpg
+* https://s-media-cache-ak0.pinimg.com/originals/e0/93/f0/e093f0ea46010e61ed87547df77b0db3.gif
 * http://transport.orgp.spb.ru/
 * http://pitertransport.com/
 
